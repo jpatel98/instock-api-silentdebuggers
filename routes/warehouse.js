@@ -30,7 +30,7 @@ router.get('/warehouses', (req, res) => {
     const warehouseResponse = warehouseArr.map(warehouse => { 
         return warehouse;
     })
-    res.json(warehouseResponse);
+    res.status(200).json(warehouseResponse);
 })
 
 //GET request for '/warehouses/warehouseId'.
@@ -52,7 +52,10 @@ router.get('/warehouses/:warehouseId', (req, res) => {
     }
   
     res.status(200).json(
-        [requestedWarehouse, requestedInventory]
+        {
+            "warehouseDetails": requestedWarehouse, 
+            "warehouseInventory": requestedInventory
+        }
     );
 })
 

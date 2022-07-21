@@ -20,7 +20,7 @@ router.get('/inventories', (req, res) => {
     const inventoryResponse = inventoryArr.map(inventory => { 
         return inventory;
     })
-    res.json(inventoryResponse);
+    res.status(200).json(inventoryResponse);
 })
 
 
