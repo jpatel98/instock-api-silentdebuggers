@@ -16,7 +16,7 @@ const readInventories = () => {
 //GET request for '/inventories'.
 // Contains entire list of inventories
 router.get('/inventories', (req, res) => {
-    //accessing videos object to send as response
+    //Storing inventory file in an array
     const inventoryArr = readInventories();
     const inventoryResponse = inventoryArr.map(inventory => { 
         return inventory;
@@ -47,5 +47,18 @@ router.post('/inventories', (req, res) => {
     fs.writeFileSync('./data/inventories.json', JSON.stringify(postNew));
     res.json(newItem);
 })
+//DELETE request for an inventory item
+//Will delete an inventory item when given an inventory id
+//Will return the inventory array without the deleted inventory
+router.delete('/inventories/:inventoryId', (req, res) => {
+
+    //Storing inventory file in an array
+    const inventoryArr = readInventories();
+
+    //Store inventory file into an array
+    res.send(inventoryArr);
+})
+
+
 
 module.exports = router;
