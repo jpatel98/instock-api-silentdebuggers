@@ -65,7 +65,7 @@ router.get('/warehouses/:warehouseId', (req, res) => {
     const warehouseArr = readWarehouses();
     const inventoryArr = readInventories();
 
-    const requestedWarehouse = warehouseArr.find(warehouse => warehouse.id === requestedWarehouseId);
+    const requestedWarehouse = warehouseArr.filter(warehouse => warehouse.id === requestedWarehouseId);
     //filter because we want multiple responses with the same warehouse ID
     const requestedInventory = inventoryArr.filter(inventory => inventory.warehouseID === requestedWarehouseId);
     
