@@ -698,15 +698,5 @@
     "category": "Health",
     "status": "Out of Stock",
     "quantity": 0
-  },
-  {
-    "id": "38a454da-0a05-11ed-861d-0242ac120002",
-    "warehouseID": "bb1491eb-30e6-4728-a5fa-72f89feaf622",
-    "warehouseName": "Paris",
-    "itemName": "Oven",
-    "description": "Oven for cooking and all that.",
-    "category": "Cooking",
-    "status": "Out of Stock",
-    "quantity": 0
   }
 ]

@@ -39,8 +39,11 @@ router.delete('/inventories/:inventoryId', (req, res) => {
         inventory => inventory.id !== requestedInventoryId
     );
 
+    //Rewrite the inventory file with the new filtered array
+    fs.writeFileSync('./data/inventories.json', JSON.stringify(inventoryArrFilter));
+
     //Store inventory file into an array
-    res.send(inventoryArrFilter);
+    res.status(200).send(inventoryArrFilter);
 })
 
 
