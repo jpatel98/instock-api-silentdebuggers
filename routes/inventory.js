@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const fs = require('fs');
+const { v4: uuid } = require('uuid');
 
 //function to read inventories.json and parse the JSON file
 const readInventories = () => {
@@ -23,5 +24,22 @@ router.get('/inventories', (req, res) => {
     res.status(200).json(inventoryResponse);
 })
 
+router.post('/inventories', (req, res) => {
+    const postNew = readInventories();
+    const newItem = {
+        id: uuid(),
+        warehouseId: uuid(),
+        warehouseName: req.body.warehouseName,
+        itemName: req.body.itemName,
+        description: req.body.description,
+        category: req.body.category,
+        status: req.body.status,
+        quantity: req.body.quantity
+    }
+
+    postNew.push(newItem);
+    fs.writeFileSync('./data/inventories.json', JSON.stringify(postNew));
+    res.json(newItem);
+})
 
 module.exports = router;
