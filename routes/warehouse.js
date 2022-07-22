@@ -121,4 +121,16 @@ router.delete('/warehouses/:warehouseId', (req, res) => {
 
 })
 
+
+//Put request for changing the details of a warehouse
+router.put('/warehouses/:warehouseId', (req, res) => {
+
+    //Store warehouse data in warehouse array
+    const warehouseArr = readWarehouses();
+    
+
+    res.status(200).json(warehouseArr);
+
+})
+
 module.exports = router;
