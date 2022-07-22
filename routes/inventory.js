@@ -23,6 +23,17 @@ router.get('/inventories', (req, res) => {
     res.status(200).json(inventoryResponse);
 })
 
+//Get request for '/inventories/:inventoryId'
+//Returns details about a single inventory item
+router.get("/inventories/:inventoryId", (req, res) => {
+
+    //Storing inventory file in an array
+    const inventoryArr = readInventories();
+
+    res.status(200).json(inventoryArr);
+})
+
+
 //DELETE request for an inventory item
 //Will delete an inventory item when given an inventory id
 //Will return the inventory array without the deleted inventory
