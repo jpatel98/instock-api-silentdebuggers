@@ -94,6 +94,10 @@ router.delete('/warehouses/:warehouseId', (req, res) => {
     //Filter out the object that must be deleted
     const warehouseArrFilter = warehouseArr.filter(warehouse => warehouse.id !== requestedWarehouseId);
 
+    //Rewrite the warehouse file with the new filtered array
+    fs.writeFileSync('./data/warehouses.json', JSON.stringify(warehouseArrFilter));
+
+
     res.send(warehouseArrFilter);
 })
 
