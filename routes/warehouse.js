@@ -88,17 +88,32 @@ router.delete('/warehouses/:warehouseId', (req, res) => {
     //Store the requested warehouse ID
     const requestedWarehouseId = req.params.warehouseId;
     
-    //Store warehouses in array
-    warehouseArr = readWarehouses();
+    //Store warehouses and inventory in array
+    const warehouseArr = readWarehouses();
 
-    //Filter out the object that must be deleted
-    const warehouseArrFilter = warehouseArr.filter(warehouse => warehouse.id !== requestedWarehouseId);
+    const inventoryArr = readInventories();
+
+
+    //Filter out the warehouse that must be deleted
+    const warehouseArrFilter = warehouseArr.filter(
+        warehouse => warehouse.id !== requestedWarehouseId
+        );
 
     //Rewrite the warehouse file with the new filtered array
     fs.writeFileSync('./data/warehouses.json', JSON.stringify(warehouseArrFilter));
 
+    //Filter out the inventory that must be deleted
+    const inventoryArrFilter = inventoryArr.filter(
+        inventory => inventory.warehouseID !== requestedWarehouseId
+    );
 
-    res.send(warehouseArrFilter);
+    //Rewrite the inventory file with the new filtered array
+    fs.writeFileSync('./data/inventories.json', JSON.stringify(inventoryArrFilter));
+    
+
+
+    res.status(200).json(warehouseArrFilter);
+
 })
 
 module.exports = router;
