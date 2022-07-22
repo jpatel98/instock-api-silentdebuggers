@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const fs = require('fs');
+const { v4: uuid } = require('uuid');
 
 //function to read warehouses.json and parse the JSON file
 const readWarehouses = () => {
@@ -32,6 +33,28 @@ router.get('/warehouses', (req, res) => {
     })
     res.status(200).json(warehouseResponse);
 })
+
+router.post('/warehouses', (req, res) => {
+    const postNew = readWarehouses();
+    const newWarehouse = {
+        id: uuid(),
+        name: req.body.name,
+        address: req.body.address,
+        city: req.body.city,
+        country: req.body.country,
+        contact: {
+            name: req.body.contactName,
+            position: req.body.position,
+            phone: req.body.phone,
+            email: req.body.email
+        }
+    }
+
+    postNew.push(newWarehouse);
+    fs.writeFileSync('./data/warehouses.json', JSON.stringify(postNew));
+    res.json(newWarehouse);
+})
+
 
 //GET request for '/warehouses/warehouseId'.
 // warehouseId will be swapped out with the id of a warehouse as found in the list of warehouseDetails
