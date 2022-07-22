@@ -26,6 +26,11 @@ router.get('/inventories', (req, res) => {
 
 //POST request for '/inventories'; adds new inventory item
 router.post('/inventories', (req, res) => {
+
+    const warehouseArr = JSON.parse(fs.readFileSync('./data/warehouses.json'));
+
+
+
     const postNew = readInventories();
     const newItem = {
         id: uuid(),
