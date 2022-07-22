@@ -96,6 +96,7 @@ router.delete('/warehouses/:warehouseId', (req, res) => {
     //Check if warehouse exists
     if ( !warehouseArr.find(warehouse => warehouse.id === requestedWarehouseId) ){
         res.status(404).send(`Warehouse with ID: ${requestedWarehouseId} does not exist`);
+        return;
     }
 
 
