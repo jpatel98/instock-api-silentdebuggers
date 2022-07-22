@@ -93,6 +93,11 @@ router.delete('/warehouses/:warehouseId', (req, res) => {
 
     const inventoryArr = readInventories();
 
+    //Check if warehouse exists
+    if ( !warehouseArr.find(warehouse => warehouse.id === requestedWarehouseId) ){
+        res.status(404).send(`Warehouse with ID: ${requestedWarehouseId} does not exist`);
+    }
+
 
     //Filter out the warehouse that must be deleted
     const warehouseArrFilter = warehouseArr.filter(
@@ -111,7 +116,7 @@ router.delete('/warehouses/:warehouseId', (req, res) => {
     fs.writeFileSync('./data/inventories.json', JSON.stringify(inventoryArrFilter));
     
 
-
+    //Return new array of warehouses without the deleted array
     res.status(200).json(warehouseArrFilter);
 
 })
