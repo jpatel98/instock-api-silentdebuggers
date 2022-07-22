@@ -28,11 +28,17 @@ router.get('/inventories', (req, res) => {
 //Will return the inventory array without the deleted inventory
 router.delete('/inventories/:inventoryId', (req, res) => {
 
-     //Store the requested inventory ID
-     const requestedInventoryId = req.params.inventoryId;
+    //Store the requested inventory ID
+    const requestedInventoryId = req.params.inventoryId;
 
     //Storing inventory file in an array
     const inventoryArr = readInventories();
+
+    //Check if inventory item exists
+    if ( !inventoryArr.find(inventory => inventory.id === requestedInventoryId) ){
+        res.status(404).send(`Inventory with ID: ${requestedInventoryId} does not exist`);
+        return;
+    }
 
     //Filter out the inventory item that must be deleted
       const inventoryArrFilter = inventoryArr.filter(
