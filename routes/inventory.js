@@ -24,6 +24,7 @@ router.get('/inventories', (req, res) => {
     res.status(200).json(inventoryResponse);
 })
 
+//POST request for '/inventories'; adding new inventory item
 router.post('/inventories', (req, res) => {
     const postNew = readInventories();
     const newItem = {
