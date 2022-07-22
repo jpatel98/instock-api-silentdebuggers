@@ -82,4 +82,13 @@ router.get('/warehouses/:warehouseId', (req, res) => {
     );
 })
 
+//Delete warehouse
+router.delete('/warehouses/:warehouseId', (req, res) => {
+    
+    //Store warehouses in array
+    warehouseArray = readWarehouses();
+
+    res.send(warehouseArray);
+})
+
 module.exports = router;
