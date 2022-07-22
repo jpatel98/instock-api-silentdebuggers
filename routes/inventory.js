@@ -33,6 +33,11 @@ router.get("/inventories/:inventoryid", (req, res) => {
     //Finding the inventory item to return
     const inventoryItem = inventoryArr.find(item => item.id === req.params.inventoryid);
 
+    if (!inventoryItem) {
+        res.status(404).send(`Inventory item with id: ${req.params.inventoryid} not found`);
+        return;
+    }
+
     res.status(200).json(inventoryItem);
 })
 
