@@ -25,12 +25,15 @@ router.get('/inventories', (req, res) => {
 
 //Get request for '/inventories/:inventoryId'
 //Returns details about a single inventory item
-router.get("/inventories/:inventoryId", (req, res) => {
+router.get("/inventories/:inventoryid", (req, res) => {
 
     //Storing inventory file in an array
     const inventoryArr = readInventories();
 
-    res.status(200).json(inventoryArr);
+    //Finding the inventory item to return
+    const inventoryItem = inventoryArr.find(item => item.id === req.params.inventoryid);
+
+    res.status(200).json(inventoryItem);
 })
 
 
