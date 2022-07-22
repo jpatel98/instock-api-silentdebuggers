@@ -84,11 +84,17 @@ router.get('/warehouses/:warehouseId', (req, res) => {
 
 //Delete warehouse
 router.delete('/warehouses/:warehouseId', (req, res) => {
+
+    //Store the requested warehouse ID
+    const requestedWarehouseId = req.params.warehouseId;
     
     //Store warehouses in array
-    warehouseArray = readWarehouses();
+    warehouseArr = readWarehouses();
 
-    res.send(warehouseArray);
+    //Filter out the object that must be deleted
+    const warehouseArrFilter = warehouseArr.filter(warehouse => warehouse.id !== requestedWarehouseId);
+
+    res.send(warehouseArrFilter);
 })
 
 module.exports = router;
