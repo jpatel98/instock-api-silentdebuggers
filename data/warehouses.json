@@ -78,6 +78,20 @@
     }
   },
   {
+    "id": "787cb028-a2db-4372-8b22-c9432105c8dd",
+    "name": "Paris",
+    "address": "123 Croissant",
+    "city": "Paris",
+    "country": "France",
+    "contact": {
+      "name": "Collion Noir",
+      "position": "Warehouse Baker",
+      "phone": "+1 (646) 123-1234",
+      "email": "noir@instock.com"
+    }
+  },
+ 
+  {
     "id": "bb1491eb-30e6-4728-a5fa-72f89feaf622",
     "name": "Miami",
     "address": "2650 NW 5th Avenue",

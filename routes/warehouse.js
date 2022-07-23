@@ -140,7 +140,7 @@ router.put('/warehouses/:warehouseId', (req, res) => {
     })
     
 
-    res.status(200).json(foundWarehouse);
+    res.status(200).json(req.body);
 
 })
 
