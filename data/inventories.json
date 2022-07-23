@@ -70,6 +70,16 @@
         "quantity": 800
     },
     {
+        "id": "787cb028-a2db-4372-8b22-c9432105c8dd",
+        "warehouseID": "2922c286-16cd-4d43-ab98-c79f698aeab0",
+        "warehouseName": "Manhattan",
+        "itemName": "Oven",
+        "description": "A perfect oven for cooking.",
+        "category": "Cooking",
+        "status": "In Stock",
+        "quantity": 65
+    },
+    {
         "id": "c0ba64a8-0ecb-4a7d-ab7f-2dbbd1d437b1",
         "warehouseID": "2922c286-16cd-4d43-ab98-c79f698aeab0",
         "warehouseName": "Manhattan",
