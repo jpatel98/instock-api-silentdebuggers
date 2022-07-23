@@ -76,7 +76,10 @@ router.put('/inventories/:inventoryId', (req, res)=> {
         return;
     }
 
+  
+    
 
+    //Find the inventory item and update it
      inventoryArr.forEach( (item,i) => {
 
         if (item.id === req.params.inventoryId) {
