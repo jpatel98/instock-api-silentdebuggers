@@ -35,6 +35,15 @@ router.delete('/inventories/:inventoryId', (req, res) => {
     res.send(inventoryArr);
 })
 
+//PUT request
+//Edit an inventory item
+router.put('/inventories/:inventoryId', (req, res)=> {
 
+     //Storing inventory file in an array
+     const inventoryArr = readInventories();
+
+     res.status(200).json(inventoryArr);
+
+})
 
 module.exports = router;
