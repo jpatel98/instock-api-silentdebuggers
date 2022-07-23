@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const fs = require('fs');
+const { v4: uuid } = require('uuid');
 
 //function to read inventories.json and parse the JSON file
 const readInventories = () => {
@@ -23,6 +24,43 @@ router.get('/inventories', (req, res) => {
     res.status(200).json(inventoryResponse);
 })
 
+router.get('/inventory', (req, res) => {
+    const warehouseArr = JSON.parse(fs.readFileSync('./data/warehouses.json'));
+    const foundWarehouseName = warehouseArr.find(warehouse => warehouse.name === req.body.warehouseName)
+    res.send(foundWarehouseName)
+})
+
+
+//POST request for '/inventories'; adds new inventory item
+router.post('/inventories', (req, res) => {
+    const warehouseArr = JSON.parse(fs.readFileSync('./data/warehouses.json'));
+
+    // if (!warehouseArr.find(warehouse => warehouse.id === req.body.warehouseId)) {
+    //     res.status(404).send('Warehouse ID does not exist')
+    // }
+    
+    const foundWarehouse = warehouseArr.find(warehouse => {
+        if (warehouse.name === req.body.warehouseName) {
+            return warehouse
+        }
+    })
+
+    const postNew = readInventories();
+    const newItem = {
+        id: uuid(),
+        warehouseId: foundWarehouse.id,
+        warehouseName: req.body.warehouseName,
+        itemName: req.body.itemName,
+        description: req.body.description,
+        category: req.body.category,
+        status: req.body.status,
+        quantity: req.body.quantity
+    }
+
+    postNew.push(newItem);
+    fs.writeFileSync('./data/inventories.json', JSON.stringify(postNew));
+    res.json(newItem);
+})
 //Get request for '/inventories/:inventoryId'
 //Returns details about a single inventory item
 router.get("/inventories/:inventoryid", (req, res) => {
