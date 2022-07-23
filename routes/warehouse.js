@@ -96,6 +96,7 @@ router.delete('/warehouses/:warehouseId', (req, res) => {
     //Check if warehouse exists
     if ( !warehouseArr.find(warehouse => warehouse.id === requestedWarehouseId) ){
         res.status(404).send(`Warehouse with ID: ${requestedWarehouseId} does not exist`);
+        return;
     }
 
 
@@ -118,6 +119,78 @@ router.delete('/warehouses/:warehouseId', (req, res) => {
 
     //Return new array of warehouses without the deleted array
     res.status(200).json(warehouseArrFilter);
+
+})
+
+
+//Put request for changing the details of a warehouse
+router.put('/warehouses/:warehouseId', (req, res) => {
+
+    //Store warehouse data in warehouse array
+    const warehouseArr = readWarehouses();
+
+    let foundWarehouse = {};
+    let foundIndex = 0;
+
+     //Check if warehouse exists
+     if ( !warehouseArr.find(warehouse => warehouse.id === req.params.warehouseId) ){
+        res.status(404).send(`Warehouse with ID: ${req.params.warehouseId} does not exist`);
+        }
+
+
+
+    //Verify if the req.body is does not have any null values
+    if (
+        !req.body.name ||
+        !req.body.address ||
+        !req.body.city ||
+        !req.body.country ||
+        !req.body.contact.name ||
+        !req.body.contact.position ||
+        !req.body.contact.phone ||
+        !req.body.contact.email
+    ){
+        res.status(306).send("All warehouse fields must be filled");
+    }
+
+    //Verify if the email and phone is valid
+    if (!req.body.contact.phone.includes("+1") ||
+        !(req.body.contact.phone.length === 17) ||
+        !req.body.contact.email.includes("@instock.com")
+        ){
+            res.status(306).send("Invalid email or password");
+                
+        }
+
+    //Retrieve the inventory that needs to be changed
+    warehouseArr.forEach((element, i) => {
+
+
+    //Find the warehouse and update the values
+        if (element.id === req.params.warehouseId) {
+            foundIndex = i;
+            warehouseArr[i] = {
+                id: warehouseArr[i].id,
+                name: req.body.name,
+                address: req.body.address,
+                city: req.body.city,
+                country: req.body.country,
+                contact: {
+                    name: req.body.contact.name,
+                    position: req.body.contact.position,
+                    phone: req.body.contact.phone,
+                    email: req.body.contact.email
+                }
+            }
+        }
+
+    })
+    
+    //Rewrite the files with the changes made
+    fs.writeFileSync('./data/warehouses.json', JSON.stringify(warehouseArr));
+
+
+    res.status(200).json(warehouseArr);
 
 })
 
