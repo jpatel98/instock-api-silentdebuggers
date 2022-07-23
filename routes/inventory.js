@@ -61,16 +61,52 @@ router.post('/inventories', (req, res) => {
     fs.writeFileSync('./data/inventories.json', JSON.stringify(postNew));
     res.json(newItem);
 })
+//Get request for '/inventories/:inventoryId'
+//Returns details about a single inventory item
+router.get("/inventories/:inventoryid", (req, res) => {
+
+    //Storing inventory file in an array
+    const inventoryArr = readInventories();
+
+    //Finding the inventory item to return
+    const inventoryItem = inventoryArr.find(item => item.id === req.params.inventoryid);
+
+    if (!inventoryItem) {
+        res.status(404).send(`Inventory item with id: ${req.params.inventoryid} not found`);
+        return;
+    }
+
+    res.status(200).json(inventoryItem);
+})
+
+
 //DELETE request for an inventory item
 //Will delete an inventory item when given an inventory id
 //Will return the inventory array without the deleted inventory
 router.delete('/inventories/:inventoryId', (req, res) => {
 
+    //Store the requested inventory ID
+    const requestedInventoryId = req.params.inventoryId;
+
     //Storing inventory file in an array
     const inventoryArr = readInventories();
 
+    //Check if inventory item exists
+    if ( !inventoryArr.find(inventory => inventory.id === requestedInventoryId) ){
+        res.status(404).send(`Inventory with ID: ${requestedInventoryId} does not exist`);
+        return;
+    }
+
+    //Filter out the inventory item that must be deleted
+      const inventoryArrFilter = inventoryArr.filter(
+        inventory => inventory.id !== requestedInventoryId
+    );
+
+    //Rewrite the inventory file with the new filtered array
+    fs.writeFileSync('./data/inventories.json', JSON.stringify(inventoryArrFilter));
+
     //Store inventory file into an array
-    res.send(inventoryArr);
+    res.status(200).send(inventoryArrFilter);
 })
 
 
