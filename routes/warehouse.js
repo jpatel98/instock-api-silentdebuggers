@@ -134,6 +134,29 @@ router.put('/warehouses/:warehouseId', (req, res) => {
     //Retrieve the inventory that needs to be changed
     warehouseArr.forEach((element, i) => {
 
+        //Verify if the req.body is does not have any null values
+        if (
+            !req.body.name ||
+            !req.body.address ||
+            !req.body.city ||
+            !req.body.country ||
+            !req.body.contact.name ||
+            !req.body.contact.position ||
+            !req.body.contact.phone ||
+            !req.body.contact.email
+        ){
+            res.status(306).send("All warehouse fields must be filled");
+        }
+
+        if (!req.body.contact.phone.includes("+1") ||
+             !(req.body.contact.phone.length === 17) ||
+             !req.body.contact.email.includes("@instock.com")
+            ){
+                res.status(306).send("Invalid email or password");
+                
+            }
+
+        //Find the warehouse and update the values
         if (element.id === req.params.warehouseId) {
             foundIndex = i;
             warehouseArr[i] = {
