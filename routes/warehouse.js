@@ -127,9 +127,20 @@ router.put('/warehouses/:warehouseId', (req, res) => {
 
     //Store warehouse data in warehouse array
     const warehouseArr = readWarehouses();
+
+    let foundWarehouse = {};
+
+    //Retrieve the inventory that needs to be changed
+    warehouseArr.forEach((element, i) => {
+
+        if (element.id === req.params.warehouseId) {
+            foundWarehouse = element;
+        }
+
+    })
     
 
-    res.status(200).json(warehouseArr);
+    res.status(200).json(foundWarehouse);
 
 })
 
