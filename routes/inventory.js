@@ -48,8 +48,7 @@ router.put('/inventories/:inventoryId', (req, res)=> {
         !req.body.itemName ||
         !req.body.description ||
         !req.body.category ||
-        !req.body.status ||
-        !req.body.quantity 
+        !req.body.status 
         )
     {
         res.status(400).send("All values must be filled");
@@ -68,6 +67,12 @@ router.put('/inventories/:inventoryId', (req, res)=> {
     //Check if the quantity is correct
     if (req.body.status === "In Stock" && req.body.quantity < 1) {
         res.status(400).send("The status is In Stock but the quantity is not greater than 0.");
+        return;
+    }
+
+      //Check if the quantity is correct
+    if (req.body.status === "Out of Stock" && req.body.quantity !== 0) {
+        res.status(400).send("The status is Out of Stock but the quantity is not equal to 0.");
         return;
     }
 
