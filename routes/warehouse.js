@@ -137,6 +137,7 @@ router.put('/warehouses/:warehouseId', (req, res) => {
         if (element.id === req.params.warehouseId) {
             foundIndex = i;
             warehouseArr[i] = {
+                id: warehouseArr[i].id,
                 name: req.body.name,
                 address: req.body.address,
                 city: req.body.city,
@@ -152,6 +153,9 @@ router.put('/warehouses/:warehouseId', (req, res) => {
 
     })
     
+    //Rewrite the files with the changes made
+    fs.writeFileSync('./data/warehouses.json', JSON.stringify(warehouseArr));
+
 
     res.status(200).json(warehouseArr);
 
