@@ -42,6 +42,21 @@ router.put('/inventories/:inventoryId', (req, res)=> {
      //Storing inventory file in an array
      const inventoryArr = readInventories();
 
+    //Check if all values are filled
+    if (
+        !req.body.warehouseName ||
+        !req.body.itemName ||
+        !req.body.description ||
+        !req.body.category ||
+        !req.body.status ||
+        !req.body.quantity 
+        )
+    {
+        res.status(400).send("All values must be filled");
+    };
+
+
+
      inventoryArr.forEach( (item,i) => {
 
         if (item.id === req.params.inventoryId) {
