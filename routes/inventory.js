@@ -42,6 +42,25 @@ router.put('/inventories/:inventoryId', (req, res)=> {
      //Storing inventory file in an array
      const inventoryArr = readInventories();
 
+     inventoryArr.forEach( (item,i) => {
+
+        if (item.id === req.params.inventoryId) {
+
+            inventoryArr[i] = {
+                id: inventoryArr[i].id,
+                warehouseId: inventoryArr[i].warehouseId,
+                warehouseName: req.body.warehouseName,
+                itemName: req.body.itemName,
+                description: req.body.description,
+                category: req.body.category,
+                status: req.body.status,
+                quantity: req.body.quantity
+            }
+
+        }
+
+     } )
+
      res.status(200).json(inventoryArr);
 
 })
