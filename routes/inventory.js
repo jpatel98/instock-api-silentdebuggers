@@ -65,6 +65,12 @@ router.put('/inventories/:inventoryId', (req, res)=> {
         return;
     }
 
+    //Check if the quantity is correct
+    if (req.body.status === "In Stock" && req.body.quantity < 1) {
+        res.status(400).send("The status is In Stock but the quantity is not greater than 0.");
+        return;
+    }
+
 
      inventoryArr.forEach( (item,i) => {
 
