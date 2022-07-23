@@ -35,14 +35,20 @@ router.get('/inventory', (req, res) => {
 router.post('/inventories', (req, res) => {
     const warehouseArr = JSON.parse(fs.readFileSync('./data/warehouses.json'));
 
-    if (!warehouseArr.find(warehouse => warehouse.id === req.body.warehouseId)) {
-        res.status(404).send('Warehouse ID does not exist')
-    }
+    // if (!warehouseArr.find(warehouse => warehouse.id === req.body.warehouseId)) {
+    //     res.status(404).send('Warehouse ID does not exist')
+    // }
     
+    const foundWarehouse = warehouseArr.find(warehouse => {
+        if (warehouse.name === req.body.warehouseName) {
+            return warehouse
+        }
+    })
+
     const postNew = readInventories();
     const newItem = {
         id: uuid(),
-        warehouseId: req.body.warehouseId,
+        warehouseId: foundWarehouse.id,
         warehouseName: req.body.warehouseName,
         itemName: req.body.itemName,
         description: req.body.description,
