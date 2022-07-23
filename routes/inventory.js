@@ -53,8 +53,17 @@ router.put('/inventories/:inventoryId', (req, res)=> {
         )
     {
         res.status(400).send("All values must be filled");
+        return;
     };
 
+    //Check if status is either out of stock or in stock
+    if (
+        req.body.status !== "In Stock" && req.body.status !== "Out of Stock"
+    ) {
+        // console.log(req.body.status);
+        res.status(400).send("Status must be either In Stock or Out of Stock");
+        return;
+    }
 
 
      inventoryArr.forEach( (item,i) => {
