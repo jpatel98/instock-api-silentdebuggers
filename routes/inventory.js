@@ -105,6 +105,72 @@ router.delete('/inventories/:inventoryId', (req, res) => {
     res.status(200).send(inventoryArrFilter);
 })
 
+//PUT request
+//Edit an inventory item
+router.put('/inventories/:inventoryId', (req, res)=> {
 
+     //Storing inventory file in an array
+     const inventoryArr = readInventories();
+
+    //Check if all values are filled
+    if (
+        !req.body.warehouseName ||
+        !req.body.itemName ||
+        !req.body.description ||
+        !req.body.category ||
+        !req.body.status 
+        )
+    {
+        res.status(400).send("All values must be filled");
+        return;
+    };
+
+    //Check if status is either out of stock or in stock
+    if (
+        req.body.status !== "In Stock" && req.body.status !== "Out of Stock"
+    ) {
+        // console.log(req.body.status);
+        res.status(400).send("Status must be either In Stock or Out of Stock");
+        return;
+    }
+
+    //Check if the quantity is correct
+    if (req.body.status === "In Stock" && req.body.quantity < 1) {
+        res.status(400).send("The status is In Stock but the quantity is not greater than 0.");
+        return;
+    }
+
+      //Check if the quantity is correct
+    if (req.body.status === "Out of Stock" && req.body.quantity !== 0) {
+        res.status(400).send("The status is Out of Stock but the quantity is not equal to 0.");
+        return;
+    }
+
+  
+    
+
+    //Find the inventory item and update it
+     inventoryArr.forEach( (item,i) => {
+
+        if (item.id === req.params.inventoryId) {
+
+            inventoryArr[i] = {
+                id: inventoryArr[i].id,
+                warehouseId: inventoryArr[i].warehouseId,
+                warehouseName: req.body.warehouseName,
+                itemName: req.body.itemName,
+                description: req.body.description,
+                category: req.body.category,
+                status: req.body.status,
+                quantity: req.body.quantity
+            }
+
+        }
+
+     } )
+
+     res.status(200).json(inventoryArr);
+
+})
 
 module.exports = router;
