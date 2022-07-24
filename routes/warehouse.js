@@ -139,27 +139,12 @@ router.put('/warehouses/:warehouseId', (req, res) => {
 
 
 
-    //Verify if the req.body is does not have any null values
-    if (
-        !req.body.name ||
-        !req.body.address ||
-        !req.body.city ||
-        !req.body.country ||
-        !req.body.contact.name ||
-        !req.body.contact.position ||
-        !req.body.contact.phone ||
-        !req.body.contact.email
-    ){
-        res.status(306).send("All warehouse fields must be filled");
-    }
-
-    //Verify if the email and phone is valid
-    if (!req.body.contact.phone.includes("+1") ||
-        !(req.body.contact.phone.length === 17) ||
-        !req.body.contact.email.includes("@instock.com")
+    //Verify if the email and phone is valid; email must include @instock.com and phone number must have 17 total characters
+    if (!req.body.phone.includes("+1") ||
+        !(req.body.phone.length === 17) ||
+        !req.body.email.includes("@instock.com")
         ){
             res.status(306).send("Invalid email or password");
-                
         }
 
     //Retrieve the inventory that needs to be changed
@@ -176,14 +161,13 @@ router.put('/warehouses/:warehouseId', (req, res) => {
                 city: req.body.city,
                 country: req.body.country,
                 contact: {
-                    name: req.body.contact.name,
-                    position: req.body.contact.position,
-                    phone: req.body.contact.phone,
-                    email: req.body.contact.email
+                    name: req.body.contactName,
+                    position: req.body.position,
+                    phone: req.body.phone,
+                    email: req.body.email
                 }
             }
         }
-
     })
     
     //Rewrite the files with the changes made
