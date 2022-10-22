@@ -1,0 +1,21 @@
+{
+  "name": "instock-server",
+  "version": "1.0.0",
+  "description": "Server repo for an inventory management app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Jigar Patel",
+  "license": "ISC",
+  "devDependencies": {
+    "knex": "^2.3.0",
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
+  }
+}
