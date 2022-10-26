@@ -23,6 +23,21 @@ exports.singleWarehouse = (req, res) => {
       res.status(200).json(data[0]);
     })
     .catch((err) =>
-      res.status(400).send(`Error retrieving warehouse-${req.params.id} ${err}`)
+      res.status(400).send(`Error retrieving data for warehouse: ${req.params.id}. ${err}`)
+    );
+};
+
+exports.warehouseInventories = (req, res) => {
+  knex('inventory')
+    .where({ warehouseID: req.params.id })
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) =>
+      res
+        .status(400)
+        .send(
+          `Error retrieving inventories data for warehouse: ${req.params.id}. ${err}`
+        )
     );
 };
