@@ -4,6 +4,7 @@ const warehouseRoutes = require('./routes/warehouseRoute');
 const inventoryRoutes = require('./routes/inventoryRoute');
 
 const PORT = 8080;
+app.use(express.json());
 
 // all warehouses routes
 app.use('/warehouses', warehouseRoutes);

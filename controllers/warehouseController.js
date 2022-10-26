@@ -41,3 +41,18 @@ exports.warehouseInventories = (req, res) => {
         )
     );
 };
+
+exports.addWarehouse = (req, res) => {
+  // Validate the request body for required data
+  if (!req.body.name || !req.body.manager || !req.body.address || !req.body.phone || !req.body.email ||  !req.body.country ||  !req.body.city) {
+    return res.status(400).send('Please make sure to provide name, manager, address, phone and email fields in a request');
+  }
+  knex('warehouse')
+    .insert(req.body)
+    .then((data) => {
+      // For POST requests we need to respond with 201 and the location of the newly created record
+      const newWarehouseURL = `/warehouses/${data[0]}`;
+      res.status(201).location(newWarehouseURL).send(newWarehouseURL);
+    })
+    .catch((err) => res.status(400).send(`Error creating Warehouse: ${err}`));
+};
