@@ -24,3 +24,31 @@ exports.addInventory = (req, res) => {
     })
     .catch((err) => res.status(400).send(`Error creating Inventory Item: ${err}`));
 };
+
+exports.singleInventory = (req, res) => {
+  knex('inventory')
+    .where({id: req.params.id})
+    .then((data) => {
+      // If record is not found, respond with 404
+      if (!data.length) {
+        return res.status(404).send(`Inventory item with id: ${req.params.id} not found`);
+      }
+      // Knex returns an array of records, so we need to send response with a single object only
+      res.status(200).json(data[0]);
+    })
+    .catch((err) =>
+      res.status(400).send(`Error retrieving data for Inventory item: ${req.params.id}. ${err}`)
+    );
+}
+
+exports.updateInventory = (req, res) => {
+  knex('inventory')
+    .update(req.body)
+    .where({ id: req.params.id })
+    .then(() => {
+      res.status(200).send(`Inventory:${req.params.id} has been updated`);
+    })
+    .catch((err) =>
+      res.status(400).send(`Error updating Inventory: ${req.params.id} ${err}`)
+    );
+};

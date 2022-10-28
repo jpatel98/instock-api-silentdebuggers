@@ -4,6 +4,13 @@ const inventoryController = require('../controllers/inventoryController');
 router
     .route('/')
     .get(inventoryController.index)
-    .post(inventoryController.addInventory)
+    .post(inventoryController.addInventory);
+
+router
+    .route('/:id')
+    .get(inventoryController.singleInventory)
+    .put(inventoryController.updateInventory)
+
+
 
 module.exports = router;
