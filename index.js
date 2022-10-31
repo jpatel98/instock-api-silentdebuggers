@@ -6,6 +6,10 @@ const inventoryRoutes = require('./routes/inventoryRoute');
 const PORT = process.env.PORT || 8080;
 app.use(express.json());
 
+app.get('/', (_req, res) => {
+  res.send("Welcome to instock-api");
+});
+
 // all warehouses routes
 app.use('/warehouses', warehouseRoutes);
 
