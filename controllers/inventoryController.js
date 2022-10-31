@@ -12,8 +12,8 @@ exports.index = (_req, res) => {
 
 exports.addInventory = (req, res) => {
   // Validate the request body for required data
-  if (!req.body.itemName || !req.body.description || !req.body.warehouseID || !req.body.warehouseName || !req.body.quantity || !req.body.status || !req.body.category) {
-    return res.status(400).send('Please make sure to provide itemName, description, warehouseID, warehouseName, quantity, status and category fields in a request');
+  if (!req.body.itemName || !req.body.description || !req.body.warehouseID || !req.body.quantity || !req.body.status || !req.body.category) {
+    return res.status(400).send('Please make sure to provide itemName, description, warehouseID, quantity, status and category fields in a request');
   }
   knex('inventory')
     .insert(req.body)
@@ -52,3 +52,15 @@ exports.updateInventory = (req, res) => {
       res.status(400).send(`Error updating Inventory: ${req.params.id} ${err}`)
     );
 };
+
+exports.deleteInventory = (req, res) => {
+  knex('inventory')
+  .delete()
+  .where({id: req.params.id})
+  .then(() => {
+    res.status(204).send(`Inventory with id: ${req.params.id} has been deleted`)
+  })
+  .catch((err) => {
+    res.status(400).send(`Error deleting inventory item ${req.params.id}`)
+  })
+}
