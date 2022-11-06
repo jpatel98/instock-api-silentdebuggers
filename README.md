@@ -41,10 +41,10 @@ Start the development server
 
 To connect the server with the databse we use a SQL query builder, knex.js. 
 
-Install Knex.js if it has not yet been installed:
+Install knex.js if it has not yet been installed:
 
 ```bash
-  npm install Knex --save
+  npm install knex --save
 ```
 
 Create a new database named "instock" on your local machine using the [mysql client tool](https://www.mysqltutorial.org/mysql-create-database/).
@@ -142,7 +142,7 @@ Get inventory for a given warehouse
   ]
   ```
 
-### POST `/api/warehouses`
+### POST `/warehouses`
 
 Add a new warehouse. 
 Needs the following JSON object for each request
@@ -158,13 +158,13 @@ Needs the following JSON object for each request
   }
   ```
 
-### PUT `/api/warehouses/:id`
+### PUT `/warehouses/:id`
 
 Edit a warehouse, given its ID.
 
 - Request body should have the following properties as an example:
 
-- `/api/warehouses/1`:
+- `/warehouses/1`:
 
   ```json
   {
@@ -177,15 +177,15 @@ Edit a warehouse, given its ID.
     "email": "jschuppe@instock.com"
   }
   ```
-### DELETE `/api/warehouses/:id`
+### DELETE `/warehouses/:id`
 
 Delete a warehouse, given its ID. 
 
-### GET `/api/inventories/:id`
+### GET `/inventories/:id`
 
 Get a single item, given its inventory ID. 
 
-- `/api/inventories/1`:
+- `/inventories/1`:
 
   ```json
   {
@@ -201,7 +201,7 @@ Get a single item, given its inventory ID.
   }
   ```
 
-### POST `/api/inventories`
+### POST `/inventories`
 
 Create a new inventory item.
 
@@ -217,13 +217,13 @@ Create a new inventory item.
   }
   ```
 
-### PUT `/api/inventories/:id`
+### PUT `/inventories/:id`
 
 Edit an inventory item, given its ID.
 
 - Request body should have the following properties as an example:
 
-- `/api/inventories/1`
+- `/inventories/1`
 
   ```json
   {
@@ -235,7 +235,7 @@ Edit an inventory item, given its ID.
     "status": "In Stock"
   }
   ```
-### DELETE `/api/inventories/:id`
+### DELETE `/inventories/:id`
 
 Delete an item, given its ID.
 
