@@ -2,7 +2,8 @@
 
 An Inventory Management System for a client that maintains a list of warehouses. Built by a team of three web developers using Agile methodology and daily scrums.
 Built with MVC pattern in mind. Source of data is a MySQL database. Using knex.js to interact with the db. 
-A front-end application accompanies this server.
+
+A [front-end application](https://github.com/jpatel98/instock-client-silentdebuggers) accompanies this server.
 
 ## Tech Stack
 
